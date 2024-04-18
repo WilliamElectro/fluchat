@@ -7,8 +7,8 @@ import 'package:fluchat/domain/models/chat_user.dart';
 
 class ProfileInput {
   ProfileInput({this.imageFile, this.name});
-  final File imageFile;
-  final String name;
+  final File? imageFile;
+  final String? name;
 }
 
 class ProfileSignInUseCase {
@@ -25,10 +25,10 @@ class ProfileSignInUseCase {
   Future<void> verify(ProfileInput input) async {
     final auth = await _authRepository.getAuthUser();
     final token = await _streamApiRepository.getToken(auth.id);
-    String image;
+    String image = '';
     if (input.imageFile != null) {
-      image = await _uploadStorageRepository.uploadPhoto(input.imageFile, 'users/${auth.id}');
+      image = await _uploadStorageRepository.uploadPhoto(input.imageFile!, 'users/${auth.id}');
     }
-    await _streamApiRepository.connectUser(ChatUser(name: input.name, id: auth.id, image: image), token);
+    await _streamApiRepository.connectUser(ChatUser(name: input.name!, id: auth.id, image: image), token);
   }
 }

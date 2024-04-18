@@ -7,9 +7,9 @@ import 'package:uuid/uuid.dart';
 
 class CreateGroupInput {
   CreateGroupInput({this.imageFile, this.name, this.members});
-  final File imageFile;
-  final String name;
-  final List<String> members;
+  final File? imageFile;
+  final String? name;
+  final List<String>? members;
 }
 
 class CreateGroupUseCase {
@@ -23,14 +23,14 @@ class CreateGroupUseCase {
 
   Future<Channel> createGroup(CreateGroupInput input) async {
     final channelId = Uuid().v4();
-    String image;
+    String image = '';
     if (input.imageFile != null) {
-      image = await _uploadStorageRepository.uploadPhoto(input.imageFile, 'channels/$channelId');
+      image = await _uploadStorageRepository.uploadPhoto(input.imageFile!, 'channels/$channelId');
     }
     final channel = await _streamApiRepository.createGroupChat(
       channelId,
-      input.name,
-      input.members,
+      input.name!,
+      input.members!,
       image: image,
     );
     return channel;

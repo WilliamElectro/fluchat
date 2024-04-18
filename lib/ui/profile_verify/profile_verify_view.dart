@@ -38,7 +38,7 @@ class ProfileVerifyView extends StatelessWidget {
                     onTap: context.read<ProfileVerifyCubit>().pickImage,
                     child: snapshot.file != null
                         ? Image.file(
-                            snapshot.file,
+                            snapshot.file!,
                             fit: BoxFit.cover,
                           )
                         : Icon(
@@ -78,7 +78,7 @@ class ProfileVerifyView extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).primaryColor,
                       child: InkWell(
                           onTap: () {
                             context.read<ProfileVerifyCubit>().startChatting();

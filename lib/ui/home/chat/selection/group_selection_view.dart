@@ -27,7 +27,7 @@ class GroupSelectionView extends StatelessWidget {
             context,
             Scaffold(
               body: StreamChannel(
-                channel: snapshot.channel,
+                channel: snapshot.channel!,
                 child: ChannelPage(),
               ),
             ),
@@ -47,7 +47,7 @@ class GroupSelectionView extends StatelessWidget {
                 'New Group',
                 style: TextStyle(
                   fontSize: 24,
-                  color: Theme.of(context).appBarTheme.color,
+                  color: Theme.of(context).appBarTheme.backgroundColor,
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -59,9 +59,9 @@ class GroupSelectionView extends StatelessWidget {
               children: [
                 AvatarImageView(
                   onTap: context.read<GroupSelectionCubit>().pickImage,
-                  child: snapshot?.file != null
+                  child: snapshot.file != null
                       ? Image.file(
-                          snapshot?.file,
+                          snapshot.file!,
                           fit: BoxFit.cover,
                         )
                       : Icon(

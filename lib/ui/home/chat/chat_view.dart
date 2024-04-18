@@ -5,7 +5,18 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 class ChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textColor = Theme.of(context).appBarTheme.color;
+    final textColor = Theme.of(context).appBarTheme.backgroundColor;
+
+    // Crea una instancia de StreamChannelListController
+    final channelListController = StreamChannelListController(
+      client: StreamChat.of(context).client,
+      filter: Filter.in_(
+        'members',
+        [StreamChat.of(context).currentUser!.id],
+      ),
+      channelStateSort: const [SortOption('last_message_at')],
+    );
+
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
       appBar: AppBar(
@@ -21,68 +32,19 @@ class ChatView extends StatelessWidget {
         elevation: 0,
         backgroundColor: Theme.of(context).canvasColor,
       ),
-      body: ChannelsBloc(
-        child: ChannelListView(
-          filter: {
-            'members': {
-              '\$in': [StreamChat.of(context).user?.id],
-            }
-          },
-          sort: [SortOption('last_message_at')],
-          channelPreviewBuilder: (context, channel) {
-            return Container(
-              color: Theme.of(context).canvasColor,
-              child: MyChannelPreview(
+      body: RefreshIndicator(
+        onRefresh: channelListController.refresh,
+        child: StreamChannelListView(
+          controller: channelListController,
+          onChannelTap: (channel) => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => StreamChannel(
                 channel: channel,
-                heroTag: channel.id,
-                onImageTap: () {
-                  String name;
-                  String image;
-                  final currentUser = StreamChat.of(context).client.state.user;
-                  if (channel.isGroup) {
-                    name = channel.extraData['name'];
-                    image = channel.extraData['image'];
-                  } else {
-                    final friend =
-                        channel.state.members.where((element) => element.userId != currentUser.id).first.user;
-                    name = friend.name;
-                    image = friend.extraData['image'];
-                  }
-
-                  return Navigator.of(context).push(
-                    PageRouteBuilder(
-                        barrierColor: Colors.black45,
-                        barrierDismissible: true,
-                        opaque: false,
-                        pageBuilder: (context, animation1, _) {
-                          return FadeTransition(
-                            opacity: animation1,
-                            child: ChatDetailView(
-                              channelId: channel.id,
-                              image: image,
-                              name: name,
-                            ),
-                          );
-                        }),
-                  );
-                },
-                onTap: (channel) => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return StreamChannel(
-                          child: ChannelPage(),
-                          channel: channel,
-                        );
-                      },
-                    ),
-                  )
-                },
+                child: ChannelPage(),
               ),
-            );
-          },
-          channelWidget: ChannelPage(),
+            ),
+          ),
         ),
       ),
     );
@@ -93,13 +55,13 @@ class ChannelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChannelHeader(),
+      appBar: StreamChannelHeader(),
       body: Column(
         children: [
           Expanded(
-            child: MessageListView(),
+            child: StreamMessageListView(),
           ),
-          MessageInput(),
+          StreamMessageInput(),
         ],
       ),
     );
@@ -108,15 +70,15 @@ class ChannelPage extends StatelessWidget {
 
 class ChatDetailView extends StatelessWidget {
   const ChatDetailView({
-    Key key,
+    required Key key,
     this.image,
     this.name,
     this.channelId,
   }) : super(key: key);
 
-  final String image;
-  final String name;
-  final String channelId;
+  final String? image;
+  final String? name;
+  final String? channelId;
 
   @override
   Widget build(BuildContext context) {
@@ -133,10 +95,10 @@ class ChatDetailView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Hero(
-                  tag: channelId,
+                  tag: channelId!,
                   child: ClipOval(
                     child: Image.network(
-                      image,
+                      image!,
                       height: 180,
                       width: 180,
                       fit: BoxFit.cover,
@@ -144,7 +106,7 @@ class ChatDetailView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  name,
+                  name!,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 22,

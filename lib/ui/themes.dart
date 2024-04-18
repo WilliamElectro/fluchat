@@ -8,9 +8,11 @@ const navigationBarDarkColor = Color(0xFF30313C);
 
 class Themes {
   static final themeLight = ThemeData.light().copyWith(
-      backgroundColor: backgroundLightColor,
-      // selected color
-      accentColor: primaryColor,
+      colorScheme: ColorScheme.light().copyWith(
+        background: backgroundLightColor,
+        // selected color
+        primary: primaryColor,
+      ),
       // floating action button
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
@@ -30,9 +32,11 @@ class Themes {
       ));
 
   static final themeDark = ThemeData.dark().copyWith(
-      backgroundColor: backgroundDarkColor,
-      // selected color
-      accentColor: primaryColor,
+      colorScheme: ColorScheme.dark().copyWith(
+        background: backgroundDarkColor,
+        // selected color
+        primary: primaryColor,
+      ),
       // floating action button
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
@@ -44,9 +48,9 @@ class Themes {
         selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey[300],
       ),
-      textSelectionColor: Colors.white,
-      // switch active color
-      toggleableActiveColor: primaryColor,
+      textSelectionTheme: TextSelectionThemeData(
+        selectionColor: Colors.white,
+      ),
       canvasColor: backgroundDarkColor,
       appBarTheme: AppBarTheme(
         color: Colors.white,

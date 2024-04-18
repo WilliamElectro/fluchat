@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AvatarImageView extends StatelessWidget {
-  const AvatarImageView({Key key, this.onTap, this.child}) : super(key: key);
+  const AvatarImageView({Key? key, required this.onTap, required this.child}) : super(key: key);
   final Widget child;
   final VoidCallback onTap;
 

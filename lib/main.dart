@@ -15,11 +15,22 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final _streamChatClient = StreamChatClient('mvsh2q8qc7az');
+  final _streamChatClient =
+      StreamChatClient('ad68nx3ettj2', logLevel: Level.INFO);
+
+  void connectFakerUser() async {
+    await _streamChatClient.disconnectUser();
+    _streamChatClient.connectUser(
+        User(id: 'wbohorquez'),
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoid2JvaG9ycXV'
+        'leiJ9.FcgjGA-2CfDo_tzOIE8__WSIKpA9dwOsNYxVMWCvMkI');
+  }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    connectFakerUser();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: [SystemUiOverlay.bottom]);
 
     return MultiRepositoryProvider(
       providers: buildRepositories(_streamChatClient),
@@ -34,10 +45,12 @@ class MyApp extends StatelessWidget {
               return StreamChat(
                 child: child,
                 client: _streamChatClient,
-                streamChatThemeData: StreamChatThemeData.fromTheme(Theme.of(context)).copyWith(
-                  ownMessageTheme: MessageTheme(
-                    messageBackgroundColor: Theme.of(context).accentColor,
-                    messageText: TextStyle(color: Colors.white),
+                streamChatThemeData:
+                    StreamChatThemeData.fromTheme(Theme.of(context)).copyWith(
+                  ownMessageTheme: StreamMessageThemeData(
+                    messageBackgroundColor:
+                        Theme.of(context).colorScheme.background,
+                    messageTextStyle: TextStyle(color: Colors.white),
                   ),
                 ),
               );

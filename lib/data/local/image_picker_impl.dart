@@ -6,7 +6,7 @@ class ImagePickerImpl extends ImagePickerRepository {
   @override
   Future<File> pickImage() async {
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(source: ImageSource.gallery, maxWidth: 400);
-    return File(pickedFile.path);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery, maxWidth: 400);
+    return File(pickedFile!.path);
   }
 }
