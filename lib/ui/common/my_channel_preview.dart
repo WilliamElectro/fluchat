@@ -58,9 +58,15 @@ class MyChannelPreview extends StatelessWidget {
                   tag: heroTag!,
                   child: StreamChannel(
                     channel: channel,
-                    child: Container(),
+                    //child: Container(),
+                    child: InkWell(
+                      onTap: onImageTap,
+                    ),
                     //child: ChannelImage(
                     //  onTap: onImageTap,
+                    //),
+                    //child: Ink.image(
+                    //  image: onImageTap,
                     //),
                   ),
                 ),
