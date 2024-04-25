@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
+/**
+ * Vista de las personas con quien se desee chatear
+ */
 class FriendsSelectionView extends StatelessWidget {
   void _createFriendChannel(BuildContext context, ChatUserState chatUserState) async {
     final channel = await context.read<FriendsSelectionCubit>().createFriendChannel(chatUserState);

@@ -57,7 +57,7 @@ class StreamApiImpl extends StreamApiRepository {
     final token = jsonDecode(response.body)['token'];
 
     //In Development mode you can just use :
-    // _client.devToken(userId);
+    _client.devToken(userId);
 
     return token;
   }

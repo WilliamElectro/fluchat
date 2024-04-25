@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
+/**
+ * Vista de pre-visualización de los grupos
+ */
 class GroupSelectionView extends StatelessWidget {
   GroupSelectionView(this.selectedUsers);
 

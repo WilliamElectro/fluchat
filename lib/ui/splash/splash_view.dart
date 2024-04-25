@@ -7,6 +7,9 @@ import 'package:fluchat/ui/splash/splash_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/**
+ * Si el usuario ya esta logeado se conecta con streamChat
+ */
 class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,11 +17,14 @@ class SplashView extends StatelessWidget {
       create: (context) => SplashCubit(context.read())..init(),
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, snapshot) {
+          //Pantalla de acceso
           if (snapshot == SplashState.none) {
             pushAndReplaceToPage(context, SignInView());
-          } else if (snapshot == SplashState.existing_user) {
+          } //Logeado
+          else if (snapshot == SplashState.existing_user) {
             pushAndReplaceToPage(context, HomeView());
-          } else {
+          } //Logeado pero no verificado con streamchat
+          else {
             pushAndReplaceToPage(context, ProfileVerifyView());
           }
         },

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluchat/dependencies.dart';
+import 'package:fluchat/firebase_options.dart';
 import 'package:fluchat/ui/app_theme_cubit.dart';
 import 'package:fluchat/ui/splash/splash_view.dart';
 import 'package:fluchat/ui/themes.dart';
@@ -10,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
@@ -20,10 +23,9 @@ class MyApp extends StatelessWidget {
 
   void connectFakerUser() async {
     await _streamChatClient.disconnectUser();
-    _streamChatClient.connectUser(
-        User(id: 'wbohorquez'),
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoid2JvaG9ycXV'
-        'leiJ9.FcgjGA-2CfDo_tzOIE8__WSIKpA9dwOsNYxVMWCvMkI');
+    //_streamChatClient.connectUser(
+      //  User(id: 'wbohorquez'),
+       // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWQ2OG54M2V0dGoyIn0.ckxjypWjk2RJC7H5bit_FoMx4l9V5rqkAQOeDycCnE4',);
   }
 
   @override

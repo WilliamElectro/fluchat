@@ -22,6 +22,7 @@ class HomeView extends StatelessWidget {
                   children: [
                     ChatView(),
                     SettingsView(),
+                    SettingsView(),
                   ],
                 );
               }),
@@ -77,6 +78,12 @@ class HomeNavigationBar extends StatelessWidget {
                         iconData: Icons.settings,
                         onTap: () => cubit.onChangeTab(1),
                         selected: cubit.state == 1,
+                      ),
+                      _HomeNavItem(
+                        text: 'Novedades',
+                        iconData: Icons.check,
+                        onTap: () => cubit.onChangeTab(2),
+                        selected: cubit.state == 2,
                       ),
                     ],
                   ),

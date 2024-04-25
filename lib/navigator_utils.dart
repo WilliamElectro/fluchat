@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/**
+ * Metodos para hacer cambios entre paginas
+ *
+ **/
+
 Future pushToPage(BuildContext context, Widget widget) async {
   await Navigator.of(context).push(
     MaterialPageRoute(

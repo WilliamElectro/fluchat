@@ -43,7 +43,7 @@ class StreamApiLocalImpl extends StreamApiRepository {
   @override
   Future<String> getToken(String userId) async {
     final token = await _client.devToken(userId);
-    return token.toString();
+    return token.rawValue;
   }
 
   @override
