@@ -36,7 +36,7 @@ class SplashView extends StatelessWidget {
                 child: Hero(
                   tag: 'logo_hero',
                   child: Image.asset(
-                    'assets/logo.png',
+                    'assets/Logo GCEEL.png',
                     height: 100,
                   ),
                 ),

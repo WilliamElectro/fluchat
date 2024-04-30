@@ -19,19 +19,6 @@ class ChatView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Theme.of(context).canvasColor,
-      appBar: AppBar(
-        title: Text(
-          'Chats',
-          style: TextStyle(
-            fontSize: 24,
-            color: textColor,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        centerTitle: false,
-        elevation: 0,
-        backgroundColor: Theme.of(context).canvasColor,
-      ),
       body: RefreshIndicator(
         onRefresh: channelListController.refresh,
         child: StreamChannelListView(

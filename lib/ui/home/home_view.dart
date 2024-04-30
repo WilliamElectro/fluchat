@@ -1,4 +1,5 @@
 import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/ui/home/Novelties/novelties_view.dart';
 import 'package:fluchat/ui/home/chat/chat_view.dart';
 import 'package:fluchat/ui/home/chat/selection/friends_selection_view.dart';
 import 'package:fluchat/ui/home/home_cubit.dart';
@@ -10,6 +11,15 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Image.asset('assets/logocompany.png', height: 32),
+            SizedBox(width: 8), //
+            Text('Nombre de la empresa'),
+          ],
+        ),
+      ),
       backgroundColor: Theme.of(context).canvasColor,
       body: BlocProvider(
         create: (_) => HomeCubit(),
@@ -22,7 +32,7 @@ class HomeView extends StatelessWidget {
                   children: [
                     ChatView(),
                     SettingsView(),
-                    SettingsView(),
+                    NoveltiesView(),
                   ],
                 );
               }),
@@ -61,27 +71,27 @@ class HomeNavigationBar extends StatelessWidget {
                 top: topMargin,
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(10),
                     color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       _HomeNavItem(
-                        text: 'Chats',
+                        text: 'Mensajes',
                         iconData: Icons.chat_bubble,
                         onTap: () => cubit.onChangeTab(0),
                         selected: cubit.state == 0,
                       ),
                       _HomeNavItem(
-                        text: 'Settings',
+                        text: 'Perfil',
                         iconData: Icons.settings,
                         onTap: () => cubit.onChangeTab(1),
                         selected: cubit.state == 1,
                       ),
                       _HomeNavItem(
                         text: 'Novedades',
-                        iconData: Icons.check,
+                        iconData: Icons.access_alarms_outlined,
                         onTap: () => cubit.onChangeTab(2),
                         selected: cubit.state == 2,
                       ),
@@ -90,7 +100,7 @@ class HomeNavigationBar extends StatelessWidget {
                 ),
               ),
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.topRight,
                 child: Container(
                   decoration: BoxDecoration(
                     color: canvasColor,

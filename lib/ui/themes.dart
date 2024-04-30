@@ -16,19 +16,19 @@ class Themes {
       // floating action button
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
+        foregroundColor: Colors.white70,
       ),
       // bottom bar
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: navigationBarLightColor,
         selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey[200],
+        unselectedItemColor: Colors.grey[500],
       ),
       // switch active color
       toggleableActiveColor: primaryColor,
       canvasColor: backgroundLightColor,
       appBarTheme: AppBarTheme(
-        color: Colors.black,
+        color: primaryColor,
       ));
 
   static final themeDark = ThemeData.dark().copyWith(
