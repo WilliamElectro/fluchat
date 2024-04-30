@@ -7,42 +7,65 @@ class NoveltiesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          EmployeeCard(
-            name: 'Jenny Chavez',
-            role: 'Gerente de Proyectos',
-            imagePath: 'assets/jenny.png',
-            progress: 0.7, // Cambia este valor según el progreso de la novedad (0.0 - 1.0)
-            noveltyDate: DateTime(2024, 6, 15), // Cambia la fecha de la novedad según corresponda
+    return DefaultTabController(
+      length: 2, // Número de tabs
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Novedades'),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'Todas'), // Primer tab
+              Tab(text: 'Próximas'), // Segundo tab
+            ],
           ),
-          EmployeeCard(
-            name: 'William Bohorquez',
-            role: 'Desarrollador Senior',
-            imagePath: 'assets/William.jpg',
-            progress: 0.5, // Cambia este valor según el progreso de la novedad (0.0 - 1.0)
-            noveltyDate: DateTime(2024, 7, 10), // Cambia la fecha de la novedad según corresponda
-          ),
-          EmployeeCard(
-            name: 'Sergio Andres Duran',
-            role: 'Diseñador UI/UX',
-            imagePath: 'assets/sergio.png',
-            progress: 0.9, // Cambia este valor según el progreso de la novedad (0.0 - 1.0)
-            noveltyDate: DateTime(2024, 5, 20), // Cambia la fecha de la novedad según corresponda
-          ),
-          // Agrega más EmployeeCard según sea necesario
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Abre la pantalla para crear una nueva novedad
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NewNoveltyForm()),
-          );
-        },
-        child: Icon(Icons.add),
+        ),
+        body: TabBarView(
+          children: [
+            // Contenido del primer tab (Todas)
+            ListView(
+              children: [
+                EmployeeCard(
+                  name: 'Jenny Chavez',
+                  role: 'Gerente de Proyectos',
+                  imagePath: 'assets/jenny.png',
+                  progress: 0.7,
+                  noveltyDate: DateTime(2024, 6, 15),
+                ),
+                EmployeeCard(
+                  name: 'William Bohorquez',
+                  role: 'Desarrollador Senior',
+                  imagePath: 'assets/William.jpg',
+                  progress: 0.5,
+                  noveltyDate: DateTime(2024, 7, 10),
+                ),
+                EmployeeCard(
+                  name: 'Sergio Andres Duran',
+                  role: 'Diseñador UI/UX',
+                  imagePath: 'assets/sergio.png',
+                  progress: 0.9,
+                  noveltyDate: DateTime(2024, 5, 20),
+                ),
+                // Agrega más EmployeeCard según sea necesario
+              ],
+            ),
+            // Contenido del segundo tab (Próximas)
+            ListView(
+              children: [
+                // Aquí puedes mostrar las próximas novedades
+              ],
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // Abre la pantalla para crear una nueva novedad
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => NewNoveltyForm()),
+            );
+          },
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

@@ -10,6 +10,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
   late DateTime _startDate;
   late DateTime _endDate;
   late String _noveltyType;
+  String _attachedDocument = '';
 
   @override
   void initState() {
@@ -33,20 +34,12 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
             },
             child: Text('Cancelar'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              // Aquí puedes agregar la lógica para guardar la nueva novedad
-              // Usando _noveltyType, _startDate y _endDate
-              Navigator.of(context).pop();
-            },
-            child: Text('Guardar'),
-          ),
         ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             DropdownButtonFormField<String>(
               value: _noveltyType,
@@ -61,7 +54,10 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
                   _noveltyType = value!;
                 });
               },
-              decoration: InputDecoration(labelText: 'Tipo de Novedad'),
+              decoration: InputDecoration(
+                labelText: 'Tipo de Novedad',
+                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              ),
             ),
             SizedBox(height: 16),
             ListTile(
@@ -112,6 +108,31 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
                   suffixIcon: Icon(Icons.calendar_today),
                 ),
               ),
+            ),
+            SizedBox(height: 8),
+            ListTile(
+              title: TextFormField(
+                readOnly: true,
+                controller: TextEditingController(
+                    text: _attachedDocument.isNotEmpty ? 'Documento adjunto: $_attachedDocument' : 'Adjuntar Documento'),
+                onTap: () {
+                  // Aquí puedes abrir un diálogo o navegar a una pantalla para seleccionar un archivo
+                  // y luego actualizar _attachedDocument con el nombre del archivo seleccionado
+                  // Por ahora, lo dejaremos vacío
+                },
+                decoration: InputDecoration(
+                  labelText: 'Adjuntar Documento',
+                  suffixIcon: Icon(Icons.attach_file),
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Aquí puedes agregar la lógica para guardar la nueva novedad
+                // Usando _noveltyType, _startDate, _endDate y _attachedDocument
+                Navigator.of(context).pop();
+              },
+              child: Text('Guardar'),
             ),
           ],
         ),
