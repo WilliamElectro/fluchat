@@ -1,7 +1,6 @@
 import 'package:fluchat/navigator_utils.dart';
 import 'package:fluchat/ui/home/Novelties/novelties_view.dart';
 import 'package:fluchat/ui/home/chat/chat_view.dart';
-import 'package:fluchat/ui/home/chat/selection/friends_selection_view.dart';
 import 'package:fluchat/ui/home/home_cubit.dart';
 import 'package:fluchat/ui/home/settings/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -96,22 +95,6 @@ class HomeNavigationBar extends StatelessWidget {
                         selected: cubit.state == 2,
                       ),
                     ],
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: canvasColor,
-                    shape: BoxShape.circle,
-                  ),
-                  padding: EdgeInsets.all(buttonMargin / 2),
-                  child: FloatingActionButton(
-                    onPressed: () {
-                      pushToPage(context, FriendsSelectionView());
-                    },
-                    child: Icon(Icons.add),
                   ),
                 ),
               ),

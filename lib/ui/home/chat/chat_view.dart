@@ -1,6 +1,7 @@
 import 'package:fluchat/ui/common/my_channel_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:fluchat/ui/home/chat/selection/friends_selection_view.dart';
 
 class ChatView extends StatelessWidget {
   @override
@@ -33,6 +34,15 @@ class ChatView extends StatelessWidget {
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FriendsSelectionView()),
+          );
+        },
+        child: Icon(Icons.chat),
       ),
     );
   }
