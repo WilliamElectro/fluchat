@@ -37,7 +37,7 @@ class SignInView extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   Text(
-                    'Welcome to\nFluChat',
+                    'Bienvenido a\nFluChat',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w900,
@@ -46,7 +46,7 @@ class SignInView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 40),
                     child: Text(
-                      'A platform to chat with users very easily and friendly',
+                      'Un aplicativo de chat amigable con el trabajador',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey,
@@ -81,7 +81,7 @@ class SignInView extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      '"in the modern world the\nquality of life is the quality\nof communication',
+                      '"Ley 2191 de 2022\nqualcrea, regula y promueve:\nla desconexión laboral de los trabajadores ',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.grey,
