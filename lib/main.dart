@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
   void connectFakerUser() async {
     await _streamChatClient.disconnectUser();
     //_streamChatClient.connectUser(
-      //  User(id: 'wbohorquez'),
-       // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWQ2OG54M2V0dGoyIn0.ckxjypWjk2RJC7H5bit_FoMx4l9V5rqkAQOeDycCnE4',);
+     // User(id: 'wbohorquez'),
+       //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWQ2OG54M2V0dGoyIn0.ckxjypWjk2RJC7H5bit_FoMx4l9V5rqkAQOeDycCnE4',);
   }
 
   @override

@@ -1,75 +1,27 @@
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:file_picker/file_picker.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-class NewNoveltyForm extends StatefulWidget {
+class NewNoveltyForm2 extends StatefulWidget {
   @override
   _NewNoveltyFormState createState() => _NewNoveltyFormState();
 }
 
-class _NewNoveltyFormState extends State<NewNoveltyForm> {
+class _NewNoveltyFormState extends State<NewNoveltyForm2> {
   late DateTime _startDate;
   late DateTime _endDate;
-  late String _noveltyType = '';
-  List<Map<String, dynamic>> _attachedDocuments = [];
-  List<String> noveltyTypes = [];
+  late String _noveltyType;
+  String _attachedDocument = '';
 
   @override
   void initState() {
     super.initState();
+    // Inicializa las fechas con la fecha actual
     _startDate = DateTime.now();
     _endDate = DateTime.now();
-    _fetchNoveltyTypes();
-  }
-
-  Future<void> _fetchNoveltyTypes() async {
-    final response =
-    await http.get(Uri.parse('https://backendpgcell.azurewebsites.net/api/TypeNovelties'));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
-      setState(() {
-        noveltyTypes = data.map((item) => item['name'].toString()).toList();
-        _noveltyType = noveltyTypes.isNotEmpty ? noveltyTypes[0] : '';
-      });
-    } else {
-      throw Exception('Failed to load novelty types');
-    }
-  }
-
-  Future<void> _selectDocument() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
-
-    if (result != null) {
-      setState(() {
-        _attachedDocuments.add({
-          'name': result.files.single.name!,
-          'icon': _getIconForFileExtension(result.files.single.extension),
-        });
-      });
-    }
-  }
-
-  IconData? _getIconForFileExtension(String? extension) {
-    if (extension == null) return null;
-
-    switch (extension.toLowerCase()) {
-      case 'pdf':
-        return Icons.picture_as_pdf;
-      case 'doc':
-      case 'docx':
-        return Icons.description;
-      case 'xls':
-      case 'xlsx':
-        return Icons.table_chart;
-      case 'ppt':
-      case 'pptx':
-        return Icons.slideshow;
-      default:
-        return Icons.attach_file;
-    }
+    // Inicializa el tipo de novedad con el primer tipo en la lista
+    _noveltyType = noveltyTypes[0];
   }
 
   @override
@@ -159,26 +111,27 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: _selectDocument,
-              icon: Icon(Icons.attach_file),
-              label: Text('Adjuntar Documento'),
-            ),
-            SizedBox(height: 16),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _attachedDocuments.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(_attachedDocuments[index]['name']),
-                    leading: Icon(_attachedDocuments[index]['icon']),
-                  );
+            SizedBox(height: 8),
+            ListTile(
+              title: TextFormField(
+                readOnly: true,
+                controller: TextEditingController(
+                    text: _attachedDocument.isNotEmpty ? 'Documento adjunto: $_attachedDocument' : 'Adjuntar Documento'),
+                onTap: () {
+                  // Aquí puedes abrir un diálogo o navegar a una pantalla para seleccionar un archivo
+                  // y luego actualizar _attachedDocument con el nombre del archivo seleccionado
+                  // Por ahora, lo dejaremos vacío
                 },
+                decoration: InputDecoration(
+                  labelText: 'Adjuntar Documento',
+                  suffixIcon: Icon(Icons.attach_file),
+                ),
               ),
             ),
             ElevatedButton(
               onPressed: () {
+                // Aquí puedes agregar la lógica para guardar la nueva novedad
+                // Usando _noveltyType, _startDate, _endDate y _attachedDocument
                 Navigator.of(context).pop();
               },
               child: Text('Guardar'),
@@ -189,3 +142,6 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
     );
   }
 }
+
+// Lista de tipos de novedad (puedes modificarla según sea necesario)
+List<String> noveltyTypes = ['Vacaciones', 'Licencia', 'Permiso'];

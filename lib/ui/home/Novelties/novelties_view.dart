@@ -62,7 +62,7 @@ class NoveltiesView extends StatelessWidget {
               children: [
                 EmployeeCard1(
                   name: 'María Rodriguez',
-                  role: 'Desarrollador de Software',
+                  role: 'Desarrolladora de Software',
                   imagePath: 'assets/jenny.png',
                   progress: 0.7,
                   startNoveltyDate: DateTime(2024, 6, 6),
@@ -71,7 +71,7 @@ class NoveltiesView extends StatelessWidget {
                 ),
                 EmployeeCard1(
                   name: 'Juan Perez',
-                  role: 'Diseñadora UI/UX',
+                  role: 'Diseñador UI/UX',
                   imagePath: 'assets/William.jpg',
                   progress: 0.5,
                   startNoveltyDate: DateTime(2024, 7, 7),

@@ -5,13 +5,13 @@ class AuthLocalImpl extends AuthRepository {
   @override
   Future<AuthUser> getAuthUser() async {
     await Future.delayed(const Duration(seconds: 2));
-    return AuthUser('wbohorquez');
+    return AuthUser('john');
   }
 
   @override
   Future<AuthUser> signIn() async {
     await Future.delayed(const Duration(seconds: 2));
-    return AuthUser('wbohorquez');
+    return AuthUser('john');
   }
 
   @override

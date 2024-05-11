@@ -1,4 +1,5 @@
 import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/ui/home/Novelties/novelties2_view.dart';
 import 'package:fluchat/ui/home/Novelties/novelties_view.dart';
 import 'package:fluchat/ui/home/chat/chat_view.dart';
 import 'package:fluchat/ui/home/home_cubit.dart';
@@ -30,8 +31,10 @@ class HomeView extends StatelessWidget {
                   index: snapshot,
                   children: [
                     ChatView(),
-                    SettingsView(),
                     NoveltiesView(),
+                    SettingsView(),
+                    NoveltiesView2(),
+
                   ],
                 );
               }),
@@ -55,7 +58,7 @@ class HomeNavigationBar extends StatelessWidget {
     final navigationBarSize = 80.0;
     final buttonSize = 56.0;
     final buttonMargin = 4.0;
-    final topMargin = buttonSize / 2 + buttonMargin / 2;
+    final topMargin = buttonSize / 3 + buttonMargin / 3;
     final canvasColor = Theme.of(context).canvasColor;
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
@@ -83,16 +86,25 @@ class HomeNavigationBar extends StatelessWidget {
                         selected: cubit.state == 0,
                       ),
                       _HomeNavItem(
-                        text: 'Perfil',
-                        iconData: Icons.settings,
+                        text: 'Novedades',
+                        iconData: Icons.access_alarms_outlined,
                         onTap: () => cubit.onChangeTab(1),
                         selected: cubit.state == 1,
                       ),
+
+
                       _HomeNavItem(
-                        text: 'Novedades',
-                        iconData: Icons.access_alarms_outlined,
+                        text: 'Perfil',
+                        iconData: Icons.settings,
                         onTap: () => cubit.onChangeTab(2),
                         selected: cubit.state == 2,
+                      ),
+
+                      _HomeNavItem(
+                        text: 'Prueba',
+                        iconData: Icons.dangerous,
+                        onTap: () => cubit.onChangeTab(3),
+                        selected: cubit.state == 3,
                       ),
                     ],
                   ),

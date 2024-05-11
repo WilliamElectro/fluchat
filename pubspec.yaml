@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  file_picker: '^6.2.1'
+
 
   flutter_bloc: ^8.1.5
   #stream_chat_flutter: ^7.2.0
