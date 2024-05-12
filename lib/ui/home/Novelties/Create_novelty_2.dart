@@ -62,7 +62,10 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
               ),
               subtitle: Text(
                 'Nombre del Trabajador',
-                style: TextStyle(fontWeight: FontWeight.normal),
+                style: TextStyle(
+                  color: Colors.grey[400], // Aquí estableces el color gris
+                  fontWeight: FontWeight.normal,
+                ),
               ),
             ),
             SizedBox(height: 16),

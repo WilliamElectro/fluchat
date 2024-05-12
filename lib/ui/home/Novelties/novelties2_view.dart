@@ -41,7 +41,7 @@ class NoveltiesView2 extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => NewNoveltyForm2()),
                   );
                 },
-                child: Icon(Icons.access_alarm),
+                child: Icon(Icons.five_k_plus_sharp),
               ),
             ),
           );
