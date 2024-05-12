@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
-import 'package:fluchat/constants.dart'; // Importa las variables globales
-import 'package:fluchat/navigator_utils.dart';
-import 'package:fluchat/ui/app_theme_cubit.dart';
-import 'package:fluchat/ui/common/avatar_image_view.dart';
-import 'package:fluchat/ui/home/settings/settings_cubit.dart';
-import 'package:fluchat/ui/sign_in/sign_in_view.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+import 'package:fluchat/constants.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart'; // Importa las variables globales
 
 class NewNoveltyForm2 extends StatefulWidget {
   @override
@@ -18,8 +15,10 @@ class NewNoveltyForm2 extends StatefulWidget {
 class _NewNoveltyFormState extends State<NewNoveltyForm2> {
   late DateTime _startDate;
   late DateTime _endDate;
-  late String _noveltyType;
+  String _noveltyType = '';
   String _attachedDocument = '';
+  List<Map<String, dynamic>> _attachedDocuments = [];
+  List<String> noveltyTypes = []; // Lista de tipos de novedad
 
   @override
   void initState() {
@@ -27,8 +26,53 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
     // Inicializa las fechas con la fecha actual
     _startDate = DateTime.now();
     _endDate = DateTime.now();
-    // Inicializa el tipo de novedad con el primer tipo en la lista
-    _noveltyType = noveltyTypes[0];
+    // Cargar los tipos de novedad
+    _fetchNoveltyTypes();
+  }
+
+  Future<void> _fetchNoveltyTypes() async {
+    try {
+      final List<dynamic> data = await ApiService(baseUrl, token).fetchTypeNovelties();
+      setState(() {
+        noveltyTypes = data.map((item) => item['name'].toString()).toList();
+        _noveltyType = noveltyTypes.isNotEmpty ? noveltyTypes[0] : '';
+      });
+    } catch (e) {
+      print('Error fetching novelty types: $e');
+    }
+  }
+
+  Future<void> _selectDocument() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      setState(() {
+        _attachedDocuments.add({
+          'name': result.files.single.name!,
+          'icon': _getIconForFileExtension(result.files.single.extension),
+        });
+      });
+    }
+  }
+
+  IconData? _getIconForFileExtension(String? extension) {
+    if (extension == null) return null;
+
+    switch (extension.toLowerCase()) {
+      case 'pdf':
+        return Icons.picture_as_pdf;
+      case 'doc':
+      case 'docx':
+        return Icons.description;
+      case 'xls':
+      case 'xlsx':
+        return Icons.table_chart;
+      case 'ppt':
+      case 'pptx':
+        return Icons.slideshow;
+      default:
+        return Icons.attach_file;
+    }
   }
 
   @override
@@ -42,7 +86,8 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              // Retorna un valor de actualización al cerrar la pantalla
+              Navigator.of(context).pop(true);
             },
             child: Text('Cancelar'),
           ),
@@ -69,22 +114,44 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
               ),
             ),
             SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              value: _noveltyType,
-              items: noveltyTypes.map((type) {
-                return DropdownMenuItem<String>(
-                  value: type,
-                  child: Text(type),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  _noveltyType = value!;
-                });
-              },
-              decoration: InputDecoration(
-                labelText: 'Tipo de Novedad',
-                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+
+            ListTile(
+              title: TextFormField(
+                readOnly: true,
+                controller: TextEditingController(
+                  text: _noveltyType.isNotEmpty ? _noveltyType : 'Seleccione Tipo de Novedad',
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return SimpleDialog(
+                        title: Text('Seleccione Tipo de Novedad'),
+                        children: noveltyTypes.map((type) {
+                          return SimpleDialogOption(
+                            onPressed: () {
+                              Navigator.pop(context, type);
+                            },
+                            child: ListTile(
+                              title: Text(type),
+                              selected: _noveltyType == type,
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  ).then((value) {
+                    if (value != null) {
+                      setState(() {
+                        _noveltyType = value;
+                      });
+                    }
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Tipo de Novedad',
+                  suffixIcon: Icon(Icons.arrow_drop_down),
+                ),
               ),
             ),
             SizedBox(height: 16),
@@ -137,21 +204,22 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
                 ),
               ),
             ),
-            SizedBox(height: 8),
-            ListTile(
-              title: TextFormField(
-                readOnly: true,
-                controller: TextEditingController(
-                    text: _attachedDocument.isNotEmpty ? 'Documento adjunto: $_attachedDocument' : 'Adjuntar Documento'),
-                onTap: () {
-                  // Aquí puedes abrir un diálogo o navegar a una pantalla para seleccionar un archivo
-                  // y luego actualizar _attachedDocument con el nombre del archivo seleccionado
-                  // Por ahora, lo dejaremos vacío
+            SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _selectDocument,
+              icon: Icon(Icons.attach_file),
+              label: Text('Adjuntar Documento'),
+            ),
+            SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _attachedDocuments.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_attachedDocuments[index]['name']),
+                    leading: Icon(_attachedDocuments[index]['icon']),
+                  );
                 },
-                decoration: InputDecoration(
-                  labelText: 'Adjuntar Documento',
-                  suffixIcon: Icon(Icons.attach_file),
-                ),
               ),
             ),
             ElevatedButton(
@@ -170,8 +238,8 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
     try {
       // Llama a la función createNovelty de ApiService para crear una nueva novedad
       await ApiService(baseUrl, token).createNovelty(combinedNameAndType);
-      // Si la solicitud es exitosa, cierra la pantalla
-      Navigator.of(context).pop();
+      // Si la solicitud es exitosa, cierra la pantalla y envía una señal para recargar NoveltiesView2
+      Navigator.of(context).pop(true);
     } catch (e) {
       // Si la solicitud falla, muestra un mensaje de error al usuario
       ScaffoldMessenger.of(context).showSnackBar(
@@ -180,6 +248,3 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
     }
   }
 }
-
-// Lista de tipos de novedad (puedes modificarla según sea necesario)
-List<String> noveltyTypes = ['Vacaciones', 'Licencia', 'Permiso'];

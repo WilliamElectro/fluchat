@@ -23,20 +23,10 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
     super.initState();
     _startDate = DateTime.now();
     _endDate = DateTime.now();
-    _fetchNoveltyTypes();
+
   }
 
-  Future<void> _fetchNoveltyTypes() async {
-    try {
-      final List<dynamic> data = await ApiService(baseUrl, token).fetchTypeNovelties();
-      setState(() {
-        _noveltyTypes = data.map((item) => item['name'].toString()).toList(); // Corregimos aquí
-        _noveltyType = _noveltyTypes.isNotEmpty ? _noveltyTypes[0] : ''; // Corregimos aquí
-      });
-    } catch (e) {
-      print('Error fetching novelty types: $e');
-    }
-  }
+
 
   Future<void> _selectDocument() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
