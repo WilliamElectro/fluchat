@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
+import 'package:fluchat/constants.dart'; // Importa las variables globales
+import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/ui/app_theme_cubit.dart';
+import 'package:fluchat/ui/common/avatar_image_view.dart';
+import 'package:fluchat/ui/home/settings/settings_cubit.dart';
+import 'package:fluchat/ui/sign_in/sign_in_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class NewNoveltyForm2 extends StatefulWidget {
   @override
@@ -26,6 +33,9 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
 
   @override
   Widget build(BuildContext context) {
+    final user = StreamChat.of(context).client.state.currentUser;
+    final loggedUserName = user?.name ?? 'Usuario Desconocido'; // Obtener el nombre del usuario logueado
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Crear Nueva Novedad'),
@@ -43,6 +53,19 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Campo para mostrar el icono y el nombre del usuario logueado
+            ListTile(
+              leading: Icon(Icons.person, size: 40), // Icono de usuario
+              title: Text(
+                loggedUserName,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                'Nombre del Trabajador',
+                style: TextStyle(fontWeight: FontWeight.normal),
+              ),
+            ),
+            SizedBox(height: 16),
             DropdownButtonFormField<String>(
               value: _noveltyType,
               items: noveltyTypes.map((type) {
@@ -130,9 +153,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Aquí puedes agregar la lógica para guardar la nueva novedad
-                // Usando _noveltyType, _startDate, _endDate y _attachedDocument
-                Navigator.of(context).pop();
+                _saveNovelty('$loggedUserName - $_noveltyType'); // Concatenar el nombre del usuario con el tipo de novedad
               },
               child: Text('Guardar'),
             ),
@@ -140,6 +161,20 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
         ),
       ),
     );
+  }
+
+  void _saveNovelty(String combinedNameAndType) async {
+    try {
+      // Llama a la función createNovelty de ApiService para crear una nueva novedad
+      await ApiService(baseUrl, token).createNovelty(combinedNameAndType);
+      // Si la solicitud es exitosa, cierra la pantalla
+      Navigator.of(context).pop();
+    } catch (e) {
+      // Si la solicitud falla, muestra un mensaje de error al usuario
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to create novelty: $e')),
+      );
+    }
   }
 }
 

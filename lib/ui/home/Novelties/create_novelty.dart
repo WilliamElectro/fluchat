@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
+import 'package:fluchat/constants.dart'; // Importa las variables globales
 
 class NewNoveltyForm extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
   late DateTime _endDate;
   late String _noveltyType = '';
   List<Map<String, dynamic>> _attachedDocuments = [];
-  List<String> noveltyTypes = [];
+  List<String> _noveltyTypes = []; // Corregimos aquí
 
   @override
   void initState() {
@@ -26,16 +27,14 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
   }
 
   Future<void> _fetchNoveltyTypes() async {
-    final response =
-    await http.get(Uri.parse('https://backendpgcell.azurewebsites.net/api/TypeNovelties'));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = json.decode(response.body);
+    try {
+      final List<dynamic> data = await ApiService(baseUrl, token).fetchTypeNovelties();
       setState(() {
-        noveltyTypes = data.map((item) => item['name'].toString()).toList();
-        _noveltyType = noveltyTypes.isNotEmpty ? noveltyTypes[0] : '';
+        _noveltyTypes = data.map((item) => item['name'].toString()).toList(); // Corregimos aquí
+        _noveltyType = _noveltyTypes.isNotEmpty ? _noveltyTypes[0] : ''; // Corregimos aquí
       });
-    } else {
-      throw Exception('Failed to load novelty types');
+    } catch (e) {
+      print('Error fetching novelty types: $e');
     }
   }
 
@@ -93,7 +92,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm> {
           children: [
             DropdownButtonFormField<String>(
               value: _noveltyType,
-              items: noveltyTypes.map((type) {
+              items: _noveltyTypes.map((type) { // Corregimos aquí
                 return DropdownMenuItem<String>(
                   value: type,
                   child: Text(type),
