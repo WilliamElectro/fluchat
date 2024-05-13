@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  FirebaseFunctions functions = FirebaseFunctions.instance;
   runApp(MyApp());
 }
 
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
         create: (context) => AppThemeCubit(context.read())..init(),
         child: BlocBuilder<AppThemeCubit, bool>(builder: (context, snapshot) {
           return MaterialApp(
-            title: 'FluChat',
+            title: 'gceel-Chat',
             home: SplashView(),
             theme: snapshot ? Themes.themeDark : Themes.themeLight,
             builder: (context, child) {

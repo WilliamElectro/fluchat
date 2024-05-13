@@ -12,7 +12,7 @@ class LoginUseCase {
   Future<bool> validateLogin() async {
     print('validateLogin');
     final user = await authRepository.getAuthUser();
-    print('user: ${user?.id}');
+    print('user: ${user.id}');
     if (user != null && user.id.isNotEmpty) {
       final result = await streamApiRepository.connectIfExist(user.id);
       if (result) {

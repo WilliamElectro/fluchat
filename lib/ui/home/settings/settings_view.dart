@@ -69,7 +69,7 @@ class SettingsView extends StatelessWidget {
                     Icon(Icons.nights_stay_outlined),
                     const SizedBox(width: 10),
                     Text(
-                      'Dark Mode',
+                      'Modo Oscuro',
                       style: TextStyle(
                         color: textColor,
                       ),
@@ -98,7 +98,7 @@ class SettingsView extends StatelessWidget {
                         Icon(Icons.logout),
                         const SizedBox(width: 10),
                         Text(
-                          'Logout',
+                          'Cerrar Sesión',
                           style: TextStyle(
                             color: textColor,
                           ),
