@@ -2,9 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:http/http.dart' as http;
-import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
-import 'package:fluchat/constants.dart'; // Importa las variables globales
 
 class NewNoveltyForm extends StatefulWidget {
   @override

@@ -1,21 +1,45 @@
 import 'dart:convert';
+import 'package:fluchat/GlobalVariables.dart';
 import 'package:http/http.dart' as http;
 
-class ApiService {
-  final String baseUrl;
-  final String token;
+class ApiServiceBack {
 
-  ApiService(this.baseUrl, this.token);
+  final String baseUrl = GlobalVariables.baseUrl;
+  final String token = GlobalVariables.token;
+
+  ApiServiceBack();
+
+  Future<Map<String, dynamic>> loginBackEnd(String email) async {
+
+    String encodedPassword = base64.encode(utf8.encode(email));
+
+    final Map<String, dynamic> body = {
+      'email': email,
+      'password': encodedPassword,
+    };
+
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/Accounts/Login'),
+      headers: _createHeaders(),
+      body: jsonEncode(body),
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to login');
+    }
+  }
 
   Future<List<dynamic>> fetchNovelties() async {
     final response = await http.get(
       Uri.parse('$baseUrl/api/Novelties'),
-      headers: _createHeaders(),
+      headers: _createHeadersWhitAuthorization(),
     );
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('No se puedo cargar las novedades');
+      throw Exception('No se pudo cargar las novedades');
     }
   }
 
@@ -27,7 +51,7 @@ class ApiService {
 
     final response = await http.post(
       Uri.parse('$baseUrl/api/Novelties'),
-      headers: _createHeaders(),
+      headers: _createHeadersWhitAuthorization(),
       body: jsonEncode(data),
     );
 
@@ -39,21 +63,44 @@ class ApiService {
   Future<List<dynamic>> fetchTypeNovelties() async {
     final response = await http.get(
       Uri.parse('$baseUrl/api/TypeNovelties'),
-      headers: _createHeaders(),
+      headers: _createHeadersWhitAuthorization(),
     );
     if (response.statusCode == 200) {
       return json.decode(response.body);
     } else {
-      throw Exception('No se puedo cargar los tipos de novedades');
+      throw Exception('No se pudo cargar los tipos de novedades');
     }
   }
 
+  //TODO: crear servicio en .net que retorne si se puede o no enviar un mensaje a la persona
+  /**
+   * Metodo encargado de recuperar los trabajadores
+   */
+  Future<List<dynamic>> fetchWorkers() async {
+    final response = await http.get(
+      Uri.parse('$baseUrl/api/Employers'),
+      headers: _createHeadersWhitAuthorization(),
+    );
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('No se pudo cargar los Trabajadores');
+    }
+  }
 
-  Map<String, String> _createHeaders() {
+  Map<String, String> _createHeadersWhitAuthorization() {
     return {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json',
       // Otros encabezados personalizados, si es necesario
     };
   }
+
+  static Map<String, String> _createHeaders() {
+    return {
+      'Content-Type': 'application/json',
+    };
+  }
+
+//TODO: crear servicio en .net que retorne si se puede o no enviar un mensaje a la persona
 }

@@ -30,8 +30,9 @@ class StreamApiImpl extends StreamApiRepository {
 
   @override
   Future<List<ChatUser>> getChatUsers() async {
-    final result = await _client. queryUsers(
-      filter: Filter.empty(),
+    final result = await _client.queryUsers(
+      //filter: Filter.empty(), //trae todos los usuarios
+      filter: Filter.equal('shadow_banned', false),
       sort: [SortOption('last_active')],
     );
     final chatUsers = result.users
@@ -49,7 +50,8 @@ class StreamApiImpl extends StreamApiRepository {
 
   @override
   Future<String> getToken(String userId) async {
-    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('getStreamUserToken');
+    //HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('getStreamUserToken');
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('createStreamUserAndGetToken');
     final results = await callable();
     print('Stream user token retrieved: ${results.data}');
     final token = results.data;

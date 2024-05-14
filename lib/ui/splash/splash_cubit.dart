@@ -1,6 +1,9 @@
+import 'package:fluchat/GlobalVariables.dart';
 import 'package:fluchat/domain/exceptions/auth_exception.dart';
 import 'package:fluchat/domain/usecases/login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../ApiService_web.dart';
 
 enum SplashState {
   none,
@@ -18,6 +21,9 @@ class SplashCubit extends Cubit<SplashState> {
   void init() async {
     try {
       final result = await _loginUseCase.validateLogin();
+      //TODO: conectar servicios de back
+      //GlobalVariables.tokenBackend = (await ApiServiceBack().loginBackEnd(GlobalVariables.googleUser!.email)) as String?;
+      //final List<dynamic> data = await ApiServiceBack().fetchNovelties();
       if (result) {
         emit(SplashState.existing_user);
       }

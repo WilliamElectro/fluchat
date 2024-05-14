@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluchat/ui/home/Novelties/Create_novelty_2.dart';
 import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
-import 'package:fluchat/constants.dart'; // Importa las variables globales
 
 class NoveltiesView2 extends StatelessWidget {
   const NoveltiesView2({Key? key}) : super(key: key);
@@ -9,7 +8,7 @@ class NoveltiesView2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<dynamic>>(
-      future: ApiService(baseUrl, token).fetchNovelties(), // Usando las constantes globales
+      future: ApiServiceBack().fetchNovelties(), // Usando las constantes globales
       builder: (context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(

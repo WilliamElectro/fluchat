@@ -3,6 +3,8 @@ import 'package:fluchat/data/auth_repository.dart';
 import 'package:fluchat/domain/models/auth_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../../GlobalVariables.dart';
+
 class AuthImpl extends AuthRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -20,6 +22,7 @@ class AuthImpl extends AuthRepository {
     try {
       UserCredential userCredential;
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      GlobalVariables.googleUser = googleUser;
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       if (googleAuth == null) {
         throw Exception('Google authentication failed.');
