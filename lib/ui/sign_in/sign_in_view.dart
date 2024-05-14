@@ -37,7 +37,7 @@ class SignInView extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
                   Text(
-                    'Bienvenido a\nFluChat',
+                    'Bienvenido a\ngceel-Chat',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.w900,
@@ -81,7 +81,7 @@ class SignInView extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      '"Ley 2191 de 2022\nqualcrea, regula y promueve:\nla desconexión laboral de los trabajadores ',
+                      '"Ley 2191 de 2022:\ncrea, regula y promueve\nla desconexión laboral de los trabajadores"',
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         color: Colors.grey,

@@ -25,12 +25,12 @@ List<RepositoryProvider> buildRepositories(StreamChatClient client) {
     //Prod
     RepositoryProvider<AuthRepository>(create: (_) => AuthImpl()),
     RepositoryProvider<PersistentStorageRepository>(create: (_) => PersistentStorageImpl()),
-    //RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiImpl(client)),
+    RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiImpl(client)),
     RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageImpl()),
     /**Local
     RepositoryProvider<AuthRepository>(create: (_) => AuthLocalImpl()),
     RepositoryProvider<PersistentStorageRepository>(create: (_) => PersistentStorageLocalImpl()),**/
-    RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiLocalImpl(client)),
+    //RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiLocalImpl(client)),
     //RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageLocalImpl()),**/
 
     RepositoryProvider<ImagePickerRepository>(create: (_) => ImagePickerImpl()),
