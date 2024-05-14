@@ -21,18 +21,18 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 List<RepositoryProvider> buildRepositories(StreamChatClient client) {
   return [
-    /**Prod
+
+    //Prod
     RepositoryProvider<AuthRepository>(create: (_) => AuthImpl()),
     RepositoryProvider<PersistentStorageRepository>(create: (_) => PersistentStorageImpl()),
-    RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiImpl(client)),
+    //RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiImpl(client)),
     RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageImpl()),
-    */
-    /**Local*/
+    /**Local
     RepositoryProvider<AuthRepository>(create: (_) => AuthLocalImpl()),
-    RepositoryProvider<PersistentStorageRepository>(create: (_) => PersistentStorageLocalImpl()),
+    RepositoryProvider<PersistentStorageRepository>(create: (_) => PersistentStorageLocalImpl()),**/
     RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiLocalImpl(client)),
-    RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageLocalImpl()),
-    //*/
+    //RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageLocalImpl()),**/
+
     RepositoryProvider<ImagePickerRepository>(create: (_) => ImagePickerImpl()),
     RepositoryProvider<ProfileSignInUseCase>(
       create: (context) => ProfileSignInUseCase(

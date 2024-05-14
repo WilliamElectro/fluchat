@@ -78,7 +78,7 @@ class FriendsSelectionView extends StatelessWidget {
                           onPressed: Navigator.of(context).pop,
                         ),
                         Text(
-                          'People',
+                          'Contactos',
                           style: TextStyle(
                             fontSize: 24,
                             color: textColor,
@@ -94,8 +94,8 @@ class FriendsSelectionView extends StatelessWidget {
                         backgroundColor: accentColor,
                         child: Icon(Icons.group_outlined),
                       ),
-                      title: Text('Create group', style: TextStyle(fontWeight: FontWeight.w700)),
-                      subtitle: Text('Talk with 2 or more contacts'),
+                      title: Text('Crear un grupo', style: TextStyle(fontWeight: FontWeight.w700)),
+                      subtitle: Text('Habla con 2 o más contactos'),
                     )
                   else if (isGroup && selectedUsers.isEmpty)
                     Padding(

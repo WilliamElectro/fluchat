@@ -34,7 +34,7 @@ class AuthImpl extends AuthRepository {
     } catch (e) {
       print(e);
       throw Exception('login error');
-    }
+    }//I/flutter ( 4186): PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null, null)
   }
 
   @override
