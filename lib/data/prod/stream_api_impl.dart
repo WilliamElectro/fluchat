@@ -42,6 +42,7 @@ class StreamApiImpl extends StreamApiRepository {
             id: e.id,
             name: e.name,
             image: e.extraData['image'] as String? ?? '',
+            email: e.extraData['email'] as String? ?? '',
           ),
         )
         .toList();

@@ -70,11 +70,13 @@ class ChatDetailView extends StatelessWidget {
     required Key key,
     this.image,
     this.name,
+    this.email,
     this.channelId,
   }) : super(key: key);
 
   final String? image;
   final String? name;
+  final String? email;
   final String? channelId;
 
   @override

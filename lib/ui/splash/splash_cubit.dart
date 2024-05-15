@@ -21,10 +21,8 @@ class SplashCubit extends Cubit<SplashState> {
   void init() async {
     try {
       final result = await _loginUseCase.validateLogin();
-      //TODO: conectar servicios de back
-      //GlobalVariables.tokenBackend = (await ApiServiceBack().loginBackEnd(GlobalVariables.googleUser!.email)) as String?;
-      //final List<dynamic> data = await ApiServiceBack().fetchNovelties();
       if (result) {
+        //await _fetchData();
         emit(SplashState.existing_user);
       }
     } on AuthException catch (ex) {
@@ -33,6 +31,19 @@ class SplashCubit extends Cubit<SplashState> {
       } else {
         emit(SplashState.new_user);
       }
+    }
+  }
+
+  /**
+   * Metodo encargado de obtener los datos iniciales de servicios
+   */
+  Future<void> _fetchData() async {
+    try {
+      String token = await ApiServiceBack().loginBackEnd(GlobalVariables.googleUser!.email);
+      GlobalVariables.tokenBackend = token;
+
+    } catch (error) {
+      print('Error al obtener información: $error');
     }
   }
 }

@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 class ApiServiceBack {
 
   final String baseUrl = GlobalVariables.baseUrl;
-  final String token = GlobalVariables.token;
+  final String? token = GlobalVariables.tokenBackend;
 
   ApiServiceBack();
 
-  Future<Map<String, dynamic>> loginBackEnd(String email) async {
+  Future<String> loginBackEnd(String email) async {
 
     String encodedPassword = base64.encode(utf8.encode(email));
 
@@ -25,7 +25,9 @@ class ApiServiceBack {
     );
 
     if (response.statusCode == 200) {
-      return json.decode(response.body);
+      final Map<String, dynamic> responseData = json.decode(response.body);
+      final String token = responseData['token'] as String;
+      return token;
     } else {
       throw Exception('Failed to login');
     }

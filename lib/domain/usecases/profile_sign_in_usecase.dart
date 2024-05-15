@@ -29,6 +29,6 @@ class ProfileSignInUseCase {
     if (input.imageFile != null) {
       image = await _uploadStorageRepository.uploadPhoto(input.imageFile!, 'users/${auth.id}');
     }
-    await _streamApiRepository.connectUser(ChatUser(name: input.name!, id: auth.id, image: image), token);
+    await _streamApiRepository.connectUser(ChatUser(name: input.name!, id: auth.id, image: image, email: '' ), token);
   }
 }
