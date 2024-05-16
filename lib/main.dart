@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fluchat/dependencies.dart';
-import 'package:fluchat/firebase_options.dart';
+import 'package:fluchat/utils/dependencies.dart';
+import 'package:fluchat/data/firebase_options.dart';
 import 'package:fluchat/ui/app_theme_cubit.dart';
 import 'package:fluchat/ui/splash/splash_view.dart';
 import 'package:fluchat/ui/themes.dart';

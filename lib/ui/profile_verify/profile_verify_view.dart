@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/common/avatar_image_view.dart';
 import 'package:fluchat/ui/common/loading_view.dart';
 import 'package:fluchat/ui/home/home_view.dart';

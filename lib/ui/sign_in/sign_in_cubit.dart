@@ -2,6 +2,8 @@ import 'package:fluchat/domain/exceptions/auth_exception.dart';
 import 'package:fluchat/domain/usecases/login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/usecases/backend_logic.dart';
+
 enum SignInState {
   none,
   existing_user,
@@ -18,6 +20,7 @@ class SignInCubit extends Cubit<SignInState> {
     try {
       final result = await _loginUseCase.validateLogin();
       if (result) {
+        await BackendLogic().fetchData();
         emit(SignInState.existing_user);
       }
     } catch (ex) {

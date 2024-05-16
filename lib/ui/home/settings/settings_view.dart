@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/app_theme_cubit.dart';
 import 'package:fluchat/ui/common/avatar_image_view.dart';
 import 'package:fluchat/ui/home/settings/settings_cubit.dart';

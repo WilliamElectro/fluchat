@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/home/Novelties/novelties2_view.dart';
 import 'package:fluchat/ui/home/Novelties/novelties_view.dart';
 import 'package:fluchat/ui/home/chat/chat_view.dart';

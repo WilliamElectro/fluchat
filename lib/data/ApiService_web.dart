@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:fluchat/GlobalVariables.dart';
+import 'package:fluchat/utils/GlobalVariables.dart';
 import 'package:http/http.dart' as http;
 
 class ApiServiceBack {
@@ -9,9 +9,9 @@ class ApiServiceBack {
 
   ApiServiceBack();
 
-  Future<String> loginBackEnd(String email) async {
+  Future<String> loginBackEnd(String? email) async {
 
-    String encodedPassword = base64.encode(utf8.encode(email));
+    String encodedPassword = base64.encode(utf8.encode(email == null ? '' : email));
 
     final Map<String, dynamic> body = {
       'email': email,
@@ -19,7 +19,7 @@ class ApiServiceBack {
     };
 
     final response = await http.post(
-      Uri.parse('$baseUrl/api/Accounts/Login'),
+      Uri.parse('$baseUrl/api/Accounts/ObtainMobileAppTokenAsync'),
       headers: _createHeaders(),
       body: jsonEncode(body),
     );
@@ -31,6 +31,12 @@ class ApiServiceBack {
     } else {
       throw Exception('Failed to login');
     }
+  }
+
+  static Map<String, String> _createHeaders() {
+    return {
+      'Content-Type': 'application/json',
+    };
   }
 
   Future<List<dynamic>> fetchNovelties() async {
@@ -95,12 +101,6 @@ class ApiServiceBack {
       'Authorization': 'Bearer $token',
       'Content-Type': 'application/json',
       // Otros encabezados personalizados, si es necesario
-    };
-  }
-
-  static Map<String, String> _createHeaders() {
-    return {
-      'Content-Type': 'application/json',
     };
   }
 

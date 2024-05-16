@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
+import 'package:fluchat/data/ApiService_web.dart'; // Importa el archivo donde se define ApiService
 import 'package:stream_chat_flutter/stream_chat_flutter.dart'; // Importa las variables globales
 
 class NewNoveltyForm2 extends StatefulWidget {

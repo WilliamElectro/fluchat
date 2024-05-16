@@ -5,6 +5,8 @@ import 'package:fluchat/domain/usecases/profile_sign_in_usecase.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/usecases/backend_logic.dart';
+
 class ProfileState {
   const ProfileState(
     this.file, {
@@ -34,6 +36,7 @@ class ProfileVerifyCubit extends Cubit<ProfileState> {
       imageFile: file,
       name: name,
     ));
+    await BackendLogic().fetchData();
     emit(ProfileState(file, success: true, loading: false));
   }
 

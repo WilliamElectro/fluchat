@@ -1,9 +1,10 @@
-import 'package:fluchat/GlobalVariables.dart';
+import 'package:fluchat/utils/GlobalVariables.dart';
 import 'package:fluchat/domain/exceptions/auth_exception.dart';
 import 'package:fluchat/domain/usecases/login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../ApiService_web.dart';
+import '../../data/ApiService_web.dart';
+import '../../domain/usecases/backend_logic.dart';
 
 enum SplashState {
   none,
@@ -22,7 +23,7 @@ class SplashCubit extends Cubit<SplashState> {
     try {
       final result = await _loginUseCase.validateLogin();
       if (result) {
-        //await _fetchData();
+        await BackendLogic().fetchData();
         emit(SplashState.existing_user);
       }
     } on AuthException catch (ex) {
@@ -31,19 +32,6 @@ class SplashCubit extends Cubit<SplashState> {
       } else {
         emit(SplashState.new_user);
       }
-    }
-  }
-
-  /**
-   * Metodo encargado de obtener los datos iniciales de servicios
-   */
-  Future<void> _fetchData() async {
-    try {
-      String token = await ApiServiceBack().loginBackEnd(GlobalVariables.googleUser!.email);
-      GlobalVariables.tokenBackend = token;
-
-    } catch (error) {
-      print('Error al obtener información: $error');
     }
   }
 }

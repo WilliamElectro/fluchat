@@ -1,14 +1,5 @@
-/// id : 7
-/// document : "1075 1"
-/// firstName : "William"
-/// lastName : "Bohorquez"
-/// email : "a@gmail.com"
-/// user : null
-/// modality : null
-/// workSchedule : {"id":3,"name":"Noche"}
-
-class Workers2 {
-  Workers2({
+class Workers {
+  Workers({
       num? id, 
       String? document, 
       String? firstName, 
@@ -27,7 +18,7 @@ class Workers2 {
     _workSchedule = workSchedule;
 }
 
-  Workers2.fromJson(dynamic json) {
+  Workers.fromJson(dynamic json) {
     _id = json['id'];
     _document = json['document'];
     _firstName = json['firstName'];
@@ -45,7 +36,7 @@ class Workers2 {
   dynamic _user;
   dynamic _modality;
   WorkSchedule? _workSchedule;
-Workers2 copyWith({  num? id,
+Workers copyWith({  num? id,
   String? document,
   String? firstName,
   String? lastName,
@@ -53,7 +44,7 @@ Workers2 copyWith({  num? id,
   dynamic user,
   dynamic modality,
   WorkSchedule? workSchedule,
-}) => Workers2(  id: id ?? _id,
+}) => Workers(  id: id ?? _id,
   document: document ?? _document,
   firstName: firstName ?? _firstName,
   lastName: lastName ?? _lastName,
@@ -87,9 +78,6 @@ Workers2 copyWith({  num? id,
   }
 
 }
-
-/// id : 3
-/// name : "Noche"
 
 class WorkSchedule {
   WorkSchedule({

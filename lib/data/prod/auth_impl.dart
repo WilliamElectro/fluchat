@@ -3,7 +3,7 @@ import 'package:fluchat/data/auth_repository.dart';
 import 'package:fluchat/domain/models/auth_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../GlobalVariables.dart';
+import '../../utils/GlobalVariables.dart';
 
 class AuthImpl extends AuthRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;

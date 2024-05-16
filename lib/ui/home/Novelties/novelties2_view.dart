@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluchat/ui/home/Novelties/Create_novelty_2.dart';
-import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
+import 'package:fluchat/data/ApiService_web.dart'; // Importa el archivo donde se define ApiService
 
 class NoveltiesView2 extends StatelessWidget {
   const NoveltiesView2({Key? key}) : super(key: key);

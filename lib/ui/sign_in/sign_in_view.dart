@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/home/home_view.dart';
 import 'package:fluchat/ui/profile_verify/profile_verify_view.dart';
 import 'package:fluchat/ui/sign_in/sign_in_cubit.dart';
