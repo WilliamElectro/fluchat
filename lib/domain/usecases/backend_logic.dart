@@ -25,7 +25,7 @@ class BackendLogic {
       String token = await ApiServiceBack().loginBackEnd(emailUser);
       GlobalVariables.tokenBackend = token;
 
-      List<Workers> workersList = _getAvailableWorkers() as List<Workers>;
+      List<Workers> workersList = getAvailableWorkers() as List<Workers>;
       GlobalVariables.availableWorkers = workersList;
 
       return true;
@@ -38,10 +38,15 @@ class BackendLogic {
   /**
    * Método privado para obtener los Workers en horario laboral
    */
-  Future<List<Workers>> _getAvailableWorkers() async {
+  Future<List<Workers>> getAvailableWorkers() async {
     List<dynamic> jsonList = await ApiServiceBack().fetchWorkers();
     List<Workers> workersList =
         jsonList.map((json) => Workers.fromJson(json)).toList();
     return workersList;
   }
+
+  bool isWorkerAvailable(String email) {
+    return GlobalVariables.availableWorkers.any((worker) => worker.email == email);
+  }
+
 }

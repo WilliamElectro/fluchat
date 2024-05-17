@@ -1,10 +1,7 @@
-import 'package:fluchat/utils/GlobalVariables.dart';
 import 'package:fluchat/domain/exceptions/auth_exception.dart';
 import 'package:fluchat/domain/usecases/login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../data/ApiService_web.dart';
-import '../../domain/usecases/backend_logic.dart';
+import 'package:fluchat/domain/usecases/backend_logic.dart';
 
 enum SplashState {
   none,

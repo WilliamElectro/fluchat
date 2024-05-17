@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluchat/data/auth_repository.dart';
 import 'package:fluchat/domain/models/auth_user.dart';
+import 'package:fluchat/domain/usecases/backend_logic.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../utils/GlobalVariables.dart';
+import '../stream_api_repository.dart';
 
 class AuthImpl extends AuthRepository {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -21,8 +23,14 @@ class AuthImpl extends AuthRepository {
   Future<AuthUser> signIn() async {
     try {
       UserCredential userCredential;
+      final StreamApiRepository streamApiRepository;
+      final AuthRepository authRepository;
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       GlobalVariables.googleUser = googleUser;
+      bool dataObtenida = await BackendLogic().fetchData();
+      if (!dataObtenida) {
+        throw Exception('Sin acceso al back.');
+      }
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
       if (googleAuth == null) {
         throw Exception('Google authentication failed.');
