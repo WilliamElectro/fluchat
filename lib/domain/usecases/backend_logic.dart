@@ -25,7 +25,7 @@ class BackendLogic {
       String token = await ApiServiceBack().loginBackEnd(emailUser);
       GlobalVariables.tokenBackend = token;
 
-      List<Workers> workersList = getAvailableWorkers() as List<Workers>;
+      List<Workers> workersList = await getAvailableWorkers() as List<Workers>;
       GlobalVariables.availableWorkers = workersList;
 
       return true;
