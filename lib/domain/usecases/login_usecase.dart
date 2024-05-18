@@ -13,7 +13,7 @@ class LoginUseCase {
     print('validateLogin');
     final user = await authRepository.getAuthUser();
     print('user: ${user?.id}');
-    if (user != null) {
+    if (user != null && user.id.isNotEmpty) {
       final result = await streamApiRepository.connectIfExist(user.id);
       if (result) {
         return true;

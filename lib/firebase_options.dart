@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '988996320161',
     projectId: 'gceel-firebase',
     storageBucket: 'gceel-firebase.appspot.com',
+    iosClientId: '988996320161-qjcv84d9shds6oir85uu57nulcn9sv43.apps.googleusercontent.com',
     iosBundleId: 'com.teamgo.fluchat',
   );
+
 }
