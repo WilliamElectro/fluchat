@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:fluchat/ApiService_web.dart'; // Importa el archivo donde se define ApiService
-import 'package:fluchat/constants.dart';
+import 'package:fluchat/data/ApiService_web.dart'; // Importa el archivo donde se define ApiService
 import 'package:stream_chat_flutter/stream_chat_flutter.dart'; // Importa las variables globales
 
 class NewNoveltyForm2 extends StatefulWidget {
@@ -32,7 +29,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
 
   Future<void> _fetchNoveltyTypes() async {
     try {
-      final List<dynamic> data = await ApiService(baseUrl, token).fetchTypeNovelties();
+      final List<dynamic> data = await ApiServiceBack().fetchTypeNovelties();
       setState(() {
         noveltyTypes = data.map((item) => item['name'].toString()).toList();
         _noveltyType = noveltyTypes.isNotEmpty ? noveltyTypes[0] : '';
@@ -237,7 +234,7 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
   void _saveNovelty(String combinedNameAndType) async {
     try {
       // Llama a la función createNovelty de ApiService para crear una nueva novedad
-      await ApiService(baseUrl, token).createNovelty(combinedNameAndType);
+      await ApiServiceBack().createNovelty(combinedNameAndType);
       // Si la solicitud es exitosa, cierra la pantalla y envía una señal para recargar NoveltiesView2
       Navigator.of(context).pop(true);
     } catch (e) {

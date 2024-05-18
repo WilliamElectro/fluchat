@@ -1,6 +1,7 @@
 import 'package:fluchat/domain/exceptions/auth_exception.dart';
 import 'package:fluchat/domain/usecases/login_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluchat/domain/usecases/backend_logic.dart';
 
 enum SplashState {
   none,
@@ -19,6 +20,7 @@ class SplashCubit extends Cubit<SplashState> {
     try {
       final result = await _loginUseCase.validateLogin();
       if (result) {
+        await BackendLogic().fetchData();
         emit(SplashState.existing_user);
       }
     } on AuthException catch (ex) {

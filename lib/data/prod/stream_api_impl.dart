@@ -4,6 +4,7 @@ import 'package:fluchat/data/stream_api_repository.dart';
 import 'package:fluchat/domain/models/chat_user.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:cloud_functions/cloud_functions.dart';
 
 class StreamApiImpl extends StreamApiRepository {
   StreamApiImpl(this._client);
@@ -29,14 +30,19 @@ class StreamApiImpl extends StreamApiRepository {
 
   @override
   Future<List<ChatUser>> getChatUsers() async {
-    final result = await _client.queryUsers();
+    final result = await _client.queryUsers(
+      //filter: Filter.empty(), //trae todos los usuarios
+      filter: Filter.equal('shadow_banned', false),
+      sort: [SortOption('last_active')],
+    );
     final chatUsers = result.users
         .where((element) => element.id != _client.state.currentUser?.id)
         .map(
           (e) => ChatUser(
             id: e.id,
             name: e.name,
-            image: e.extraData['image'] as String,
+            image: e.extraData['image'] as String? ?? '',
+            email: e.extraData['email'] as String? ?? '',
           ),
         )
         .toList();
@@ -45,20 +51,14 @@ class StreamApiImpl extends StreamApiRepository {
 
   @override
   Future<String> getToken(String userId) async {
-    //TODO: use your own implementation in Production
-    final urlBacken = Uri.parse('tu_url_aqui');
-    final response = await http.post(
-      urlBacken,
-      body: jsonEncode(<String, String>{'id': userId}),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    final token = jsonDecode(response.body)['token'];
+    //HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('getStreamUserToken');
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('createStreamUserAndGetToken');
+    final results = await callable();
+    print('Stream user token retrieved: ${results.data}');
+    final token = results.data;
 
     //In Development mode you can just use :
-    _client.devToken(userId);
-
+    //_client.devToken(userId);
     return token;
   }
 

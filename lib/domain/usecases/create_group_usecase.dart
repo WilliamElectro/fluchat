@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:fluchat/data/stream_api_repository.dart';
 import 'package:fluchat/data/upload_storage_repository.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
-import 'package:uuid/uuid.dart';
 
 class CreateGroupInput {
   CreateGroupInput({this.imageFile, this.name, this.members});

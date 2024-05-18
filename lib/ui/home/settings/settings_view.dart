@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/app_theme_cubit.dart';
 import 'package:fluchat/ui/common/avatar_image_view.dart';
 import 'package:fluchat/ui/home/settings/settings_cubit.dart';
@@ -69,7 +69,7 @@ class SettingsView extends StatelessWidget {
                     Icon(Icons.nights_stay_outlined),
                     const SizedBox(width: 10),
                     Text(
-                      'Dark Mode',
+                      'Modo Oscuro',
                       style: TextStyle(
                         color: textColor,
                       ),
@@ -98,7 +98,7 @@ class SettingsView extends StatelessWidget {
                         Icon(Icons.logout),
                         const SizedBox(width: 10),
                         Text(
-                          'Logout',
+                          'Cerrar Sesión',
                           style: TextStyle(
                             color: textColor,
                           ),

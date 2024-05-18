@@ -1,4 +1,4 @@
-import 'package:fluchat/navigator_utils.dart';
+import 'package:fluchat/utils/navigator_utils.dart';
 import 'package:fluchat/ui/common/avatar_image_view.dart';
 import 'package:fluchat/ui/common/loading_view.dart';
 import 'package:fluchat/ui/home/home_view.dart';
@@ -28,7 +28,7 @@ class ProfileVerifyView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Verify your identity',
+                    'Verifica tu identidad',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w800,
@@ -48,7 +48,7 @@ class ProfileVerifyView extends StatelessWidget {
                           ),
                   ),
                   Text(
-                    'Your name',
+                    'Tu nombre',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                     ),
@@ -62,7 +62,7 @@ class ProfileVerifyView extends StatelessWidget {
                       controller: context.read<ProfileVerifyCubit>().nameController,
                       decoration: InputDecoration(
                         fillColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                        hintText: 'Or just how people now you',
+                        hintText: 'O simplemente cómo la gente ahora te conoce',
                         hintStyle: TextStyle(
                           fontSize: 13,
                           color: Colors.grey[400],
@@ -89,7 +89,7 @@ class ProfileVerifyView extends StatelessWidget {
                               vertical: 15,
                             ),
                             child: Text(
-                              'Start chatting now',
+                              'Continuar',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
