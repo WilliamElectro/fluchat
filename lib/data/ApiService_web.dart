@@ -86,7 +86,7 @@ class ApiServiceBack {
    */
   Future<List<dynamic>> fetchWorkers() async {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/ActiveWorkers'),
+      Uri.parse('$baseUrl/api/Workers/ActiveWorkers'),
       headers: _createHeadersWhitAuthorization(),
     );
     if (response.statusCode == 200) {
