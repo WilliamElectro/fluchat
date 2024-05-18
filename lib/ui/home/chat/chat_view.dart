@@ -1,4 +1,6 @@
+import 'package:fluchat/domain/usecases/backend_logic.dart';
 import 'package:fluchat/ui/common/my_channel_preview.dart';
+import 'package:fluchat/utils/GlobalVariables.dart';
 import 'package:flutter/material.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 import 'package:fluchat/ui/home/chat/selection/friends_selection_view.dart';
@@ -51,6 +53,7 @@ class ChatView extends StatelessWidget {
 class ChannelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    _handleMemberLogic(context);
     return Scaffold(
       appBar: StreamChannelHeader(),
       body: Column(
@@ -62,6 +65,23 @@ class ChannelPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+void _handleMemberLogic(BuildContext context) {
+  final channel = StreamChannel.of(context).channel;
+  final memberCount = channel.memberCount;
+  final List<Member>? members = channel.state?.members;
+
+  if (memberCount != null && memberCount == 2) {
+    final userId = StreamChat.of(context).currentUser?.id;
+    final otherMember =
+        members?.firstWhere((member) => member.user?.id != userId);
+    final email = otherMember?.user?.extraData['email'];
+
+    String emailDestinatary = (email is String) ? email : '';
+    GlobalVariables.isWorkerAvailable =
+        BackendLogic().isWorkerAvailable(emailDestinatary);
   }
 }
 
