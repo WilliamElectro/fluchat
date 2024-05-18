@@ -1,5 +1,5 @@
 name: fluchat
-description: Chat App implemented using Clean Architecture to PGCEEL.
+description: Chat App implemented using Clean Architecture to GCEEL.
 publish_to: 'none'
 version: 1.0.0+1
 

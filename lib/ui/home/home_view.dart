@@ -65,7 +65,7 @@ class HomeNavigationBar extends StatelessWidget {
       child: Material(
         child: Container(
           height: navigationBarSize + topMargin,
-          width: MediaQuery.of(context).size.width * 0.7,
+          width: MediaQuery.of(context).size.width,
           color: canvasColor,
           child: Stack(
             children: [
