@@ -53,8 +53,8 @@ class MyApp extends StatelessWidget {
                     StreamChatThemeData.fromTheme(Theme.of(context)).copyWith(
                   ownMessageTheme: StreamMessageThemeData(
                     messageBackgroundColor:
-                        Theme.of(context).colorScheme.background,
-                    messageTextStyle: TextStyle(color: Colors.white),
+                        Theme.of(context).colorScheme.primary,
+                    messageTextStyle: TextStyle(color: Theme.of(context).colorScheme.background),
                   ),
                 ),
               );

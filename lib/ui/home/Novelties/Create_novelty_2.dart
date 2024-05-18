@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:fluchat/data/ApiService_web.dart'; // Importa el archivo donde se define ApiService
-import 'package:stream_chat_flutter/stream_chat_flutter.dart'; // Importa las variables globales
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
+
+import '../../../utils/navigator_utils.dart';
+import 'novelties2_view.dart'; // Importa las variables globales
 
 class NewNoveltyForm2 extends StatefulWidget {
   @override
@@ -236,7 +239,8 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
       // Llama a la función createNovelty de ApiService para crear una nueva novedad
       await ApiServiceBack().createNovelty(combinedNameAndType);
       // Si la solicitud es exitosa, cierra la pantalla y envía una señal para recargar NoveltiesView2
-      Navigator.of(context).pop(true);
+      //Navigator.of(context).pop(true);
+      pushAndReplaceToPage(context, NoveltiesView2());
     } catch (e) {
       // Si la solicitud falla, muestra un mensaje de error al usuario
       ScaffoldMessenger.of(context).showSnackBar(

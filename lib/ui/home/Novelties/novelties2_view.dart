@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluchat/ui/home/Novelties/Create_novelty_2.dart';
-import 'package:fluchat/data/ApiService_web.dart'; // Importa el archivo donde se define ApiService
+import 'package:fluchat/data/ApiService_web.dart';
+
+import '../../../utils/navigator_utils.dart'; // Importa el archivo donde se define ApiService
 
 class NoveltiesView2 extends StatelessWidget {
   const NoveltiesView2({Key? key}) : super(key: key);
@@ -34,16 +36,8 @@ class NoveltiesView2 extends StatelessWidget {
                 },
               ),
               floatingActionButton: FloatingActionButton(
-                onPressed: () async {
-                  final shouldReload = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewNoveltyForm2()),
-                  );
-
-                  if (shouldReload == true) {
-                    // Llama a la función para recargar la pantalla aquí
-                    // Puedes implementar la lógica de recarga aquí
-                  }
+                onPressed: () {
+                  pushAndReplaceToPage(context, NewNoveltyForm2());
                 },
                 child: Icon(Icons.five_k_plus_sharp),
               ),

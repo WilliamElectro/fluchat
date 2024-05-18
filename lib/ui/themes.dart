@@ -13,7 +13,7 @@ class Themes {
         // selected color
         primary: primaryColor,
       ),
-      // floating action button
+      // floating action button icono de los botones
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: primaryColor,
         foregroundColor: Colors.white70,
@@ -53,6 +53,6 @@ class Themes {
       ),
       canvasColor: backgroundDarkColor,
       appBarTheme: AppBarTheme(
-        color: Colors.white,
+        color: Colors.black,
       ));
 }
