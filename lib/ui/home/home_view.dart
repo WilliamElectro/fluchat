@@ -33,7 +33,7 @@ class HomeView extends StatelessWidget {
                     ChatView(),
                     NoveltiesView(),
                     SettingsView(),
-                    NoveltiesView2(),
+                    //NoveltiesView2(),
 
                   ],
                 );
@@ -100,12 +100,12 @@ class HomeNavigationBar extends StatelessWidget {
                         selected: cubit.state == 2,
                       ),
 
-                      _HomeNavItem(
-                        text: 'Prueba',
-                        iconData: Icons.dangerous,
-                        onTap: () => cubit.onChangeTab(3),
-                        selected: cubit.state == 3,
-                      ),
+                      //_HomeNavItem(
+                       // text: 'Prueba',
+                        //iconData: Icons.dangerous,
+                        //onTap: () => cubit.onChangeTab(3),
+                        //selected: cubit.state == 3,
+                      //),
                     ],
                   ),
                 ),

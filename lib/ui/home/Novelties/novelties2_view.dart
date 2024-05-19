@@ -37,7 +37,11 @@ class NoveltiesView2 extends StatelessWidget {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  pushAndReplaceToPage(context, NewNoveltyForm2());
+                  // Abre la pantalla para crear una nueva novedad
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewNoveltyForm2()),
+                  );
                 },
                 child: Icon(Icons.five_k_plus_sharp),
               ),

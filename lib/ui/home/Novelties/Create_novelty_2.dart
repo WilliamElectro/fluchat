@@ -238,9 +238,12 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
     try {
       // Llama a la función createNovelty de ApiService para crear una nueva novedad
       await ApiServiceBack().createNovelty(combinedNameAndType);
-      // Si la solicitud es exitosa, cierra la pantalla y envía una señal para recargar NoveltiesView2
-      //Navigator.of(context).pop(true);
-      pushAndReplaceToPage(context, NoveltiesView2());
+      // Si la solicitud es exitosa, cierra la pantalla y navega a la página de novedades
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => NoveltiesView2()),
+            (route) => false,
+      );
     } catch (e) {
       // Si la solicitud falla, muestra un mensaje de error al usuario
       ScaffoldMessenger.of(context).showSnackBar(
@@ -249,3 +252,4 @@ class _NewNoveltyFormState extends State<NewNoveltyForm2> {
     }
   }
 }
+
