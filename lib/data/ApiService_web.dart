@@ -84,9 +84,9 @@ class ApiServiceBack {
   /**
    * Metodo encargado de recuperar los trabajadores
    */
-  Future<List<dynamic>> fetchWorkers() async {
+  Future<List<dynamic>> fetchWorkers(String currentTimeString) async {
     final response = await http.get(
-      Uri.parse('$baseUrl/api/Workers/ActiveWorkers'),
+      Uri.parse('$baseUrl/api/Workers/ActiveWorkers?currentTimeString=$currentTimeString'),
       headers: _createHeadersWhitAuthorization(),
     );
     if (response.statusCode == 200) {

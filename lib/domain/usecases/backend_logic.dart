@@ -25,7 +25,9 @@ class BackendLogic {
       String token = await ApiServiceBack().loginBackEnd(emailUser);
       GlobalVariables.tokenBackend = token;
 
-      List<Workers> workersList = await getAvailableWorkers() as List<Workers>;
+      final now = DateTime.now();
+      final timeString = '${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}';
+      List<Workers> workersList = await getAvailableWorkers(timeString) as List<Workers>;
       GlobalVariables.availableWorkers = workersList;
 
       return true;
@@ -38,8 +40,8 @@ class BackendLogic {
   /**
    * Método privado para obtener los Workers en horario laboral
    */
-  Future<List<Workers>> getAvailableWorkers() async {
-    List<dynamic> jsonList = await ApiServiceBack().fetchWorkers();
+  Future<List<Workers>> getAvailableWorkers(String currentTimeString) async {
+    List<dynamic> jsonList = await ApiServiceBack().fetchWorkers(currentTimeString);
     List<Workers> workersList =
         jsonList.map((json) => Workers.fromJson(json)).toList();
     return workersList;
