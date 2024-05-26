@@ -23,6 +23,9 @@ class MyApp extends StatelessWidget {
   final _streamChatClient =
       StreamChatClient('ad68nx3ettj2', logLevel: Level.INFO);
 
+  /**
+   * Metodo encargado de mockear una conexion a stream api
+   */
   void connectFakerUser() async {
     await _streamChatClient.disconnectUser();
     //_streamChatClient.connectUser(

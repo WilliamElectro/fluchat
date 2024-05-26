@@ -19,6 +19,9 @@ import 'package:fluchat/domain/usecases/profile_sign_in_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
+/**
+ * Función que construye y devuelve una lista de RepositoryProviders
+ */
 List<RepositoryProvider> buildRepositories(StreamChatClient client) {
   return [
 
@@ -33,7 +36,9 @@ List<RepositoryProvider> buildRepositories(StreamChatClient client) {
     RepositoryProvider<StreamApiRepository>(create: (_) => StreamApiLocalImpl(client)),
     RepositoryProvider<UploadStorageRepository>(create: (_) => UploadStorageLocalImpl()),**/
 
+    // Repositorio para la selección de imágenes
     RepositoryProvider<ImagePickerRepository>(create: (_) => ImagePickerImpl()),
+
     RepositoryProvider<ProfileSignInUseCase>(
       create: (context) => ProfileSignInUseCase(
         context.read(),

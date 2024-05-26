@@ -1,21 +1,19 @@
 # FluChat
 
-FluChat is a sample chat app made in Flutter using [Stream Chat](https://getstream.io/chat/sdk/flutter/), [Firebase](https://firebase.google.com/), and [flutter_bloc](https://bloclibrary.dev/#/). It has full light and dark mode support, real-time chat, and full authentication using Firebase auth. 
+FluChat es una aplicación de chat de muestra hecha en Flutter utilizando [Stream Chat](https://getstream.io/chat/sdk/flutter/), [Firebase](https://firebase.google.com/), y [flutter_bloc](https://bloclibrary.dev/#/).
+Tiene soporte completo para modo claro y oscuro, chat en tiempo real, y autenticación completa utilizando Firebase auth.
 
-> Activate English subtitles
+## Características
 
+- Inicio de sesión utilizando Firebase Auth y Google Sign In
+- Subir imágenes utilizando Firebase Storage
+- Chat en tiempo real utilizando el paquete StreamChat
+- Modo oscuro / modo claro
+- Gestión de estado utilizando flutter_bloc y cubits
 
-## Features
+## Instalación
 
-- Login using Firebase Auth and Google Sign In
-- Upload pictures using Firebase Storage
-- Realtime chat using StreamChat package
-- Dark mode/Light mode
-- State Management using flutter_bloc and cubits
-
-## Instalation
-
-- Clone project
-- Configure Firebase stuff (google-services.json and Google-Service.info.plist files)
-- Configure Google Sign In 
-- Configure your Stream project
+- Clonar proyecto
+- Configurar cosas de Firebase (archivos google-services.json y Google-Service.info.plist)
+- Configurar Google Sign In
+- Configurar tu proyecto de Stream
